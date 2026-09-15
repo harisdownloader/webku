@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html><head><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HARIS DOWNLOADER</title>
+<style>
+body{background:#0a0000;color:#fff;font-family:sans-serif;display:flex;justify-content:center;padding:20px;margin:0}
+.box{background:#1a0000;border:2px solid #ff1a1a55;padding:22px;border-radius:20px;width:100%;max-width:400px;text-align:center}
+h1{color:#ff1a1a;text-shadow:0 0 10px red;margin:0}
+input{width:92%;padding:12px;border-radius:10px;background:#000;border:1px solid #555;color:#fff;margin:8px 0}
+.btn{width:100%;padding:12px;border:none;border-radius:10px;font-weight:bold;margin:6px 0;cursor:pointer}
+.red{background:#ff0000;color:#fff}.dark{background:#222;color:#ff7777;border:1px solid #ff000044}
+#out{margin-top:12px;font-size:12px;color:#0f0;word-break:break-all}
+canvas{display:none}
+</style></head>
+<body>
+<div class="box">
+<h1>🔥 HARIS DOWNLOADER 🔥</h1>
+<p style="font-size:11px;color:#888">webkudownloader.vercel.app - ONLINE</p>
+<input id="url" placeholder="Paste Link TikTok / IG / YT / FB">
+<input type="file" id="file" accept="image/*">
+<button class="btn red" onclick="downloadVideo()">DOWNLOAD VIDEO</button>
+<button class="btn dark" onclick="makeSticker()">STIKER WA 512x512</button>
+<button class="btn dark" onclick="makeHD()">HD FOTO 2X</button>
+<div id="out">Tempel link / upload foto bos!</div>
+<canvas id="cv"></canvas>
+</div>
+<script>
+async function downloadVideo(){
+ let u=document.getElementById('url').value.trim();
+ if(!u){out.innerHTML='Paste link dulu bos!';return}
+ out.innerHTML='⏳ Proses link...';
+ try{
+  let r=await fetch('https://www.tikwm.com/api/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'url='+encodeURIComponent(u)+'&count=12&cursor=0&web=1&hd=1'});
+  let j=await r.json();
+  if(j.data && j.data.play){
+    out.innerHTML=`<a href="${j.data.play}" target="_blank" style="color:#0f0">✅ KLIK DOWNLOAD VIDEO NO WM</a><br><br><a href="${j.data.wmplay}" target="_blank" style="color:#ff0">Versi WM</a>`;
+  }else{
+    out.innerHTML=`Link kebaca bos! Tapi buat IG/YT/FB buka backup:<br><a href="https://savefrom.net/${u}" target="_blank" style="color:#0f0">👉 BUKA DOWNLOADER BACKUP</a>`;
+  }
+ }catch(e){ out.innerHTML=`Error CORS, buka manual:<br><a href="https://ssstik.io/en" target="_blank" style="color:#0f0">SSSTIK.IO buat TikTok</a>`; }
+}
+function makeSticker(){
+ let f=document.getElementById('file').files[0]; if(!f){out.innerHTML='Upload foto dulu!';return}
+ let img=new Image(); img.onload=()=>{
+  let c=document.getElementById('cv'); c.width=512;c.height=512;
+  let ctx=c.getContext('2d'); ctx.clearRect(0,0,512,512);
+  let scale=Math.min(512/img.width,512/img.height); let w=img.width*scale,h=img.height*scale;
+  ctx.drawImage(img,(512-w)/2,(512-h)/2,w,h);
+  c.toBlob(b=>{
+   let a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download='haris_stiker.webp'; a.click();
+   out.innerHTML='✅ Stiker jadi bos! Cek download';
+  },'image/webp');
+ }; img.src=URL.createObjectURL(f);
+}
+function makeHD(){
+ let f=document.getElementById('file').files[0]; if(!f){out.innerHTML='Upload foto dulu!';return}
+ let img=new Image(); img.onload=()=>{
+  let c=document.getElementById('cv'); c.width=img.width*2;c.height=img.height*2;
+  c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+  let a=document.createElement('a'); a.href=c.toDataURL('image/jpeg',0.95); a.download='haris_HD.jpg'; a.click();
+  out.innerHTML='✅ HD 2X jadi bos!';
+ }; img.src=URL.createObjectURL(f);
+}
+</script>
+</body></html>
