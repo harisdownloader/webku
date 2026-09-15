@@ -1,0 +1,8 @@
+{
+  "builds": [
+    { "src": "webku.py", "use": "@vercel/python" }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "webku.py" }
+  ]
+}
