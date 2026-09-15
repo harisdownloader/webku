@@ -1,68 +1,43 @@
 <!DOCTYPE html>
-<html><head><meta name="viewport" content="width=device-width,initial-scale=1">
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>ORCA DOWNLOADER</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{
-  min-height:100vh;display:flex;justify-content:center;align-items:center;
-  background:#050000;position:relative;overflow:hidden;
-  font-family:sans-serif;padding:20px;
-}
-body::before{
-  content:"";position:absolute;width:200%;height:200%;top:-50%;left:-50%;
-  background: radial-gradient(circle at center, #ff000066 0%, #7a000044 20%, #000000 60%);
-  animation: rotateAura 15s linear infinite;
-}
-@keyframes rotateAura{0%{transform:rotate(0deg) scale(1)}50%{transform:rotate(180deg) scale(1.2)}100%{transform:rotate(360deg) scale(1)}}
-.bg-glow{
-  position:absolute;width:90vw;height:90vw;max-width:600px;max-height:600px;
-  background: radial-gradient(circle, #ff0000aa 0%, #ff000000 70%);
-  filter:blur(40px);animation:pulseGlow 3s ease-in-out infinite alternate;
-}
-@keyframes pulseGlow{from{transform:scale(0.8);opacity:0.5}to{transform:scale(1.2);opacity:0.8}}
-.box{
-  position:relative;z-index:2;
-  background:rgba(10,0,0,0.9);border:1px solid #ff0000;
-  box-shadow:0 0 40px #ff0000aa, inset 0 0 20px #ff000033;
-  padding:24px;border-radius:28px;width:100%;max-width:390px;text-align:center;
-  backdrop-filter:blur(10px);
-}
-.logo-wrap{
-  width:160px;height:160px;margin:0 auto 10px;
-  border-radius:50%;padding:3px;
-  background:linear-gradient(45deg,#ff0000,#000,#ff0000);
-  box-shadow:0 0 25px #ff0000, 0 0 50px #ff000066;
-  animation: logoPulse 2s infinite alternate;
-}
-@keyframes logoPulse{from{box-shadow:0 0 20px #ff0000}to{box-shadow:0 0 40px #ff0000, 0 0 70px #ff0000}}
-.logo-wrap img{width:100%;height:100%;border-radius:50%;object-fit:cover;background:#000}
-h2{color:#fff;text-shadow:0 0 10px red;letter-spacing:3px;margin-top:10px}
-.sub{font-size:10px;color:#ff4444;letter-spacing:1px;margin:6px 0 14px}
-input{width:92%;padding:12px;border-radius:12px;background:#000;border:1px solid #ff000055;color:#fff;margin:7px 0;outline:none}
+body{min-height:100vh;display:flex;justify-content:center;align-items:center;background:#000;overflow:hidden;font-family:sans-serif;padding:20px;position:relative}
+body::before{content:"";position:absolute;width:200%;height:200%;top:-50%;left:-50%;background:radial-gradient(circle,#ff000066 0%,#000 60%);animation:rotate 12s linear infinite}
+@keyframes rotate{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.glow{position:absolute;width:600px;height:600px;background:radial-gradient(circle,#ff000088,transparent 70%);filter:blur(40px);animation:pulse 2s infinite alternate}
+@keyframes pulse{from{transform:scale(0.8)}to{transform:scale(1.2)}}
+.box{position:relative;z-index:2;background:rgba(12,0,0,0.92);border:1px solid #ff0000;border-radius:28px;padding:24px;width:100%;max-width:380px;text-align:center;box-shadow:0 0 40px #ff0000aa}
+.logo{width:160px;height:160px;margin:0 auto;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:90px;background:radial-gradient(circle,#1a0000,#000);border:3px solid #ff0000;box-shadow:0 0 30px #ff0000, inset 0 0 20px #ff000044;animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+h1{color:#fff;letter-spacing:4px;margin:12px 0 4px;text-shadow:0 0 10px red}
+p{font-size:10px;color:#ff4444;margin-bottom:14px}
+input{width:92%;padding:12px;border-radius:12px;background:#000;border:1px solid #ff000055;color:#fff;margin:7px 0}
 .btn{width:100%;padding:13px;border:none;border-radius:12px;font-weight:bold;margin:6px 0;cursor:pointer}
 .red{background:linear-gradient(90deg,#ff0000,#8a0000);color:#fff;box-shadow:0 0 15px #ff0000}
 .dark{background:#0a0000;color:#ff5555;border:1px solid #ff000033}
-#out{margin-top:12px;font-size:12px;color:#0f0;word-break:break-all}
+#out{margin-top:10px;font-size:12px;color:#0f0}
 canvas{display:none}
 </style></head>
 <body>
-<div class="bg-glow"></div>
+<div class="glow"></div>
 <div class="box">
-  <div class="logo-wrap"><img src="logo.jpg" onerror="this.src='https://i.imgur.com/8Km9tLL.png'"></div>
-  <h2>ORCA</h2>
-  <div class="sub">● BLOOD MOON EDITION ● ONLINE</div>
-  <input id="url" placeholder="Paste Link TikTok / IG / YT / FB">
-  <input type="file" id="file" accept="image/*">
-  <button class="btn red" onclick="downloadVideo()">DOWNLOAD VIDEO</button>
-  <button class="btn dark" onclick="makeSticker()">STIKER WA 512x512</button>
-  <button class="btn dark" onclick="makeHD()">HD FOTO 2X</button>
-  <div id="out">Tempel link bos!</div>
-  <canvas id="cv"></canvas>
+<div class="logo">🫍</div>
+<h1>ORCA</h1>
+<p>● BLOOD MOON EDITION ● ONLINE</p>
+<input id="url" placeholder="Paste Link TikTok / IG / YT / FB">
+<input type="file" id="file" accept="image/*">
+<button class="btn red" onclick="downloadVideo()">DOWNLOAD VIDEO</button>
+<button class="btn dark" onclick="makeSticker()">STIKER WA 512x512</button>
+<button class="btn dark" onclick="makeHD()">HD FOTO 2X</button>
+<div id="out">Tempel link bos!</div>
+<canvas id="cv"></canvas>
 </div>
 <script>
 async function downloadVideo(){
  let u=document.getElementById('url').value.trim();
- if(!u){out.innerHTML='Paste link dulu bos!';return}
+ if(!u){out.innerHTML='Paste link dulu!';return}
  out.innerHTML='⏳ Proses...';
  try{
   let r=await fetch('https://www.tikwm.com/api/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'url='+encodeURIComponent(u)});
@@ -74,18 +49,16 @@ async function downloadVideo(){
 function makeSticker(){
  let f=document.getElementById('file').files[0]; if(!f){out.innerHTML='Upload foto dulu!';return}
  let img=new Image(); img.onload=()=>{
-  let c=document.getElementById('cv'); c.width=512;c.height=512;
-  let ctx=c.getContext('2d'); let s=Math.min(512/img.width,512/img.height); let w=img.width*s,h=img.height*s;
+  let c=document.getElementById('cv'); c.width=512;c.height=512; let ctx=c.getContext('2d'); let s=Math.min(512/img.width,512/img.height); let w=img.width*s,h=img.height*s;
   ctx.clearRect(0,0,512,512); ctx.drawImage(img,(512-w)/2,(512-h)/2,w,h);
-  c.toBlob(b=>{let a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download='orca_stiker.webp'; a.click(); out.innerHTML='✅ Jadi!'},'image/webp');
+  c.toBlob(b=>{let a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download='orca.webp'; a.click(); out.innerHTML='✅ Jadi!'},'image/webp');
  }; img.src=URL.createObjectURL(f);
 }
 function makeHD(){
  let f=document.getElementById('file').files[0]; if(!f){out.innerHTML='Upload foto dulu!';return}
  let img=new Image(); img.onload=()=>{
-  let c=document.getElementById('cv'); c.width=img.width*2;c.height=img.height*2;
-  c.getContext('2d').drawImage(img,0,0,c.width,c.height);
-  let a=document.createElement('a'); a.href=c.toDataURL('image/jpeg',0.95); a.download='orca_HD.jpg'; a.click(); out.innerHTML='✅ HD jadi!';
+  let c=document.getElementById('cv'); c.width=img.width*2;c.height=img.height*2; c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+  let a=document.createElement('a'); a.href=c.toDataURL('image/jpeg',0.95); a.download='HD.jpg'; a.click(); out.innerHTML='✅ HD jadi!';
  }; img.src=URL.createObjectURL(f);
 }
 </script>
